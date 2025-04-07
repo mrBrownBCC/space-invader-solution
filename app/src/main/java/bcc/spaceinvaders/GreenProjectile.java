@@ -2,7 +2,6 @@ package bcc.spaceinvaders;
 
 import java.awt.Graphics;
 
-import org.checkerframework.checker.units.qual.g;
 
 public class GreenProjectile extends Projectile {
   public GreenProjectile(double x, double y, GamePanel game) {

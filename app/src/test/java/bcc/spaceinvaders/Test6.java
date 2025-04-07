@@ -6,9 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Test6 {
     
@@ -71,7 +69,6 @@ public class Test6 {
         double initialXVelocity = enemy.getXVelocity();
         
         // Use getters for dirSwitchTimer and dirSwitchInterval
-        int dirSwitchTimer = enemy.getDirSwitchTimer();
         int dirSwitchInterval = enemy.getDirSwitchInterval();
         
         // Set timer to just before interval
