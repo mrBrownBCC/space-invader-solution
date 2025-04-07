@@ -34,6 +34,19 @@ application {
     // Define the main class for the application.
     mainClass = 'bcc.spaceinvaders.App'
 }
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'bcc.spaceinvaders.App'
+        )
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 test {
     testLogging {
         events "passed", "failed", "skipped"
@@ -47,5 +60,52 @@ tasks.withType(Test) {
         events "passed", "failed", "skipped"
         exceptionFormat "full"
         showStandardStreams = true
+    }
+}
+
+task test1(type: Test) {
+    description = "Runs tests in the test1 class."
+    group = "verification"
+    filter {
+        includeTestsMatching "bcc.spaceinvaders.Test1"
+    }
+}
+task test2(type: Test) {
+    description = "Runs tests in the test2 class."
+    group = "verification"
+    filter {
+        includeTestsMatching "bcc.spaceinvaders.Test2"
+    }
+}
+
+task test3(type: Test) {
+    description = "Runs tests in the test3 class."
+    group = "verification"
+    filter {
+        includeTestsMatching "bcc.spaceinvaders.Test3"
+    }
+}
+
+task test4(type: Test) {
+    description = "Runs tests in the test4 class."
+    group = "verification" 
+    filter {
+        includeTestsMatching "bcc.spaceinvaders.Test4"
+    }
+}
+
+task test5(type: Test) {
+    description = "Runs tests in the test5 class."
+    group = "verification"
+    filter {
+        includeTestsMatching "bcc.spaceinvaders.Test5"
+    }
+}
+
+task test6(type: Test) {
+    description = "Runs tests in the test6 class."
+    group = "verification"
+    filter {
+        includeTestsMatching "bcc.spaceinvaders.Test6"
     }
 }

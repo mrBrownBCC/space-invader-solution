@@ -6,7 +6,7 @@ public class App extends JFrame {
     public App() {
         setTitle("Space Invaders");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(new GamePanel());
+        add(new GamePanel(false));
         pack();
         setLocationRelativeTo(null);
         setResizable(false);

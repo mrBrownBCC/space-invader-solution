@@ -16,6 +16,7 @@ public class Ship extends GameObject {
     }
 
     public boolean isAlive() {
+        //step 5.3 - return true if heath is greater than 0 and false otherwise.
         return health > 0;
     }
 
@@ -38,5 +39,8 @@ public class Ship extends GameObject {
 
         g.setColor(java.awt.Color.GREEN);
         g.fillRect(healthBarX, healthBarY, (int) ((double) health / maxHealth * healthBarWidth), healthBarHeight);
+    }
+    public int getHealth() {
+        return health;
     }
 }

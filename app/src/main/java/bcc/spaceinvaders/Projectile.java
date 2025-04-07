@@ -21,7 +21,7 @@ public class Projectile extends GameObject {
 
 
     public boolean isAlive() {
-        //5.X - check if the projectile is off the screen. if it is, set alive to false.
+        //step 5.7 - check if the projectile is off the screen. if it is, set alive to false.
         //then return the current value of alive. Remember that alive can also be set to false if the projectile is destroyed.
         if (x + width < 0 || x > Utilities.SCREEN_WIDTH || y + height < 0 || y > Utilities.SCREEN_HEIGHT) {
             alive = false;
@@ -30,10 +30,10 @@ public class Projectile extends GameObject {
     }
 
     public void handleCollision(GameObject other) {
-        //if frienyly and colliding with an enemy ship, set alive to false
+        //step 5.6 - if frienyly and colliding with an enemy ship, set alive to false
         //if not friendly and colliding with a player ship, set alive to false
+        //note that alive is an instance variable of the Projectile class.
         if (other instanceof Ship) {
-            Ship ship = (Ship) other;
             if (friendly && other instanceof EnemyShip) {
                 alive = false;
             } else if (!friendly && other instanceof PlayerShip) {
@@ -45,7 +45,7 @@ public class Projectile extends GameObject {
     public boolean isFriendly() {
         return friendly;
     }
-    
+
     public int getDamage() {
         return damageAmount;
     }

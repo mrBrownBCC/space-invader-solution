@@ -3,7 +3,6 @@ package bcc.spaceinvaders;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
@@ -18,11 +17,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     private int score = 0;
     private boolean gameOver = false;
 
-    public GamePanel() {
+    public GamePanel(boolean testMode) {
         setPreferredSize(new Dimension(Utilities.SCREEN_WIDTH, Utilities.SCREEN_HEIGHT));
         setFocusable(true);
         addKeyListener(this);
-        Utilities.loadImages();
+        System.out.println("GamePanel constructor - TEST MODE: " + testMode);
+        if(!testMode)Utilities.loadImages();
         initializeStars();
         gameObjects = new ArrayList<GameObject>();
 
@@ -145,6 +145,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     }
 
     public boolean completedLevel() {
+        //step 5.8 - check if the level is completed. The level is completed if there are no enemy ships in the gameObjects ArrayList.
+        //use instanceof!
+        //return true if the level is completed and false otherwise.
         for (GameObject obj : gameObjects) {
             if (obj instanceof EnemyShip) {
                 return false; // If any enemy ship is present, level is not completed
@@ -162,6 +165,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         message = "Level " + (level);
         if (level == 0) {
             //step 4.3 - Add enemies for level 0. You should add 3 SpeedyEnemies with random x positions and y = -100.
+            //NOTE - the last parameeter should be 'this'
             //after you make each enemy, add it to the gameObjects ArrayList
             for (int i = 0; i < 3; i++) {
                 double x = Math.random() * Utilities.SCREEN_WIDTH;
@@ -170,14 +174,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
                 gameObjects.add(enemy);
             }
         } else if (level == 1) {
-            //step X.X- Add enemies for level 1. You should add 3 TankyEnemies with x positions of 250, 350, and 450 and y = -150.
+            //step 6.3- Add enemies for level 1. You should add 3 TankyEnemies with x positions of 250, 350, and 450 and y = -150.
             //try to use a for loop to do this.
             //after you make each enemy, add it to the gameObjects ArrayList
             for(int i = 0; i < 3; i ++){
                 gameObjects.add(new TankyEnemy(250 + 100*i, -150,this));
             }
         } else if(level == 2){
-            //step X.X- Add enemies for level 2. You should add 1 Boss with x position of 300 and y = -200.
+            //step 6.5- Add enemies for level 2. You should add 1 Boss with x position of 300 and y = -200.
             gameObjects.add(new Boss(Utilities.SCREEN_WIDTH / 2 - 100, -200, this));
         } else if(level == 3){
             
@@ -211,5 +215,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     public PlayerShip getPlayer() {
         return player;
+    }
+
+    public Star[] getStars() {
+        return stars;
+    }
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
     }
 }

@@ -1,7 +1,6 @@
 package bcc.spaceinvaders;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 
 public class PlayerShip extends Ship {
@@ -16,10 +15,9 @@ public class PlayerShip extends Ship {
 
     @Override
     public void update() {
-        super.update();
         //step 2.3  Implement the update method. The player ship should move based on the WASD keys.
 
-        //first make a call to super.update()
+       
 
         //then set the xVelocity and yVelocity to 0
         xVelocity = 0;
@@ -40,7 +38,8 @@ public class PlayerShip extends Ship {
         if (Utilities.isKeyPressed(KeyEvent.VK_D)){ 
             xVelocity = Utilities.PLAYER_SPEED;
         }
-        
+        //now make a call to super.update()
+        super.update();
         //step 2.4 make a call to keepInBounds() to make sure the ship does not go off the screen.
         keepInBounds();
     }
@@ -73,14 +72,21 @@ public class PlayerShip extends Ship {
 
     @Override
     public void shoot() {
-        Projectile p = new Projectile(x + width / 2 - Utilities.PROJECTILE_SIZE , y + Utilities.PROJECTILE_SIZE, 0, -10, Utilities.PLAYER_PROJECTILE_IMAGE, true, game);
+        //step 5.4 - create a projectile and add it to the game using the game.addProjectile method.
+        //use PROJECTILE_SIZE for the width and height, and set the xVelocity to 0 and yVelocity to -10.
+        //use Utilities.PLAYER_PROJECTILE_IMAGE for the image.
+        //set the friendly flag to true.
+        Projectile p = new Projectile(x + width / 2 - Utilities.PROJECTILE_SIZE/2 , y + Utilities.PROJECTILE_SIZE, 0, -10, Utilities.PLAYER_PROJECTILE_IMAGE, true, game);
         game.addProjectile(p);
     }
 
     @Override
     public void handleCollision(GameObject other) {
+        //step 5.2 - USE instanceof to check if the other object is a projectile.
+        //if it is,  cast the other object to a projectile and check if it is friendly.
+        //if it is NOT friendly, take damage from the projectile. 
+        //use takeDamage() to take damage from the projectile.
         if(other instanceof Projectile) {
-            System.out.println("PlayerShip collision with projectile");
             Projectile projectile = (Projectile) other;
             if(!projectile.isFriendly()) {
                 takeDamage(projectile.getDamage());

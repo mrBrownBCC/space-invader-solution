@@ -66,18 +66,43 @@ public class GameObject {
     public double getHeight() {
         return height;
     }
+    public double getXVelocity() {
+        return xVelocity;
+    }
+    public double getYVelocity() {
+        return yVelocity;
+    }
+    public void setX(double x) {
+        this.x = x;
+    }
+    public void setY(double y) {
+        this.y = y;
+    }
+    public void setXVelocity(double xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+    public void setYVelocity(double yVelocity) {
+        this.yVelocity = yVelocity;
+    }
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
+    }
+    public double getRotation() {
+        return rotation;
+    }
 
     public boolean containsPoint(double pointX, double pointY) {
         return (pointX >= x && pointX <= x + width && pointY >= y && pointY <= y + height);
     }
     public boolean checkCollision(GameObject other) {
-        //check not self
+        //step 5.1
+        //check that the other object is not self
         //check if either object is alive
         //check if either object is not alive
         if(other == this || !isAlive() || !other.isAlive()) {
             return false; // No collision with itself
         }
-        //check 4 corners of other object
+        //check 4 corners of other object, see if any are inside this object using the containsPoint method above. 
         return containsPoint(other.getX(), other.getY()) ||
                containsPoint(other.getX() + other.getWidth(), other.getY()) ||
                containsPoint(other.getX(), other.getY() + other.getHeight()) ||

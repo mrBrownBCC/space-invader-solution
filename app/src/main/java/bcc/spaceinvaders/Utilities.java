@@ -8,7 +8,6 @@ import java.io.File;
 
 public class Utilities {
     public static BufferedImage PLAYER_NORMAL_IMAGE;
-    public static BufferedImage PLAYER_SHOOTING_IMAGE;
     public static BufferedImage PLAYER_DAMAGE_IMAGE;
     public static BufferedImage ENEMY_IMAGE;
     public static BufferedImage PROJECTILE_IMAGE;
@@ -23,7 +22,7 @@ public class Utilities {
 
 
     public static double PLAYER_SPEED = 7;
-    public static final int PROJECTILE_SIZE = 15;
+    public static final int PROJECTILE_SIZE = 25;
 
     public static final int SCREEN_WIDTH = 800;
     public static final int SCREEN_HEIGHT = 600;
@@ -32,7 +31,6 @@ public class Utilities {
     public static void loadImages() {
         try {
             PLAYER_NORMAL_IMAGE = cropToContent(ImageIO.read(new File("app/src/main/resources/images/playerNormal.png")));
-            PLAYER_SHOOTING_IMAGE = cropToContent(ImageIO.read(new File("app/src/main/resources/images/playerShooting.png")));
             PLAYER_DAMAGE_IMAGE = cropToContent(ImageIO.read(new File("app/src/main/resources/images/playerDamage.png")));
             SPEEDY_ENEMY_IMAGE = cropToContent(ImageIO.read(new File("app/src/main/resources/images/speedyEnemy.png")));
             TANK_ENEMY_IMAGE = cropToContent(ImageIO.read(new File("app/src/main/resources/images/tankEnemy.png")));
@@ -96,9 +94,38 @@ public class Utilities {
         }
     }
     
-    public static boolean isKeyPressed(int keyCode) {
+    // For testing purposes only
+private static boolean[] testKeyStates = new boolean[256];
+
+// Test helper methods
+public static void resetKeyStates() {
+    for (int i = 0; i < testKeyStates.length; i++) {
+        testKeyStates[i] = false;
+    }
+}
+
+public static void setKeyPressed(int keyCode, boolean isPressed) {
+    if (keyCode < testKeyStates.length) {
+        testKeyStates[keyCode] = isPressed;
+    }
+}
+
+// Modify the existing isKeyPressed method to use the test states in test mode
+private static boolean inTestMode = false;
+
+public static void setTestMode(boolean enabled) {
+    inTestMode = enabled;
+}
+
+// Update the existing isKeyPressed method
+public static boolean isKeyPressed(int keyCode) {
+    if (inTestMode) {
+        return keyCode < testKeyStates.length && testKeyStates[keyCode];
+    } else {
+        // Original implementation
         return keysPressed.contains(keyCode);
     }
+}
     
 
 
